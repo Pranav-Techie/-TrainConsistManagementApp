@@ -1,47 +1,28 @@
-import java.util.*;
+import java.util.LinkedHashSet;
 
 public class TrainConsistManagementApp {
-
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App ===");
+        // Step 1: Create LinkedHashSet to store bogies
+        LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
 
-        // UC1: Initialize train
-        List<String> trainConsist = new ArrayList<>();
-        System.out.println("Train initialized.");
-        System.out.println("Initial bogie count: " + trainConsist.size());
+        // Step 2: Add bogies in order
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        // UC2: Passenger bogies
-        System.out.println("\n--- UC2: Passenger Bogie Operations ---");
+        System.out.println("Initial Train Formation:");
+        System.out.println(trainFormation);
 
-        List<String> passengerBogies = new ArrayList<>();
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // Step 3: Attempt to add duplicate bogie
+        trainFormation.add("Sleeper");  // Duplicate (will be ignored)
 
-        System.out.println("Passenger bogies after addition:");
-        System.out.println(passengerBogies);
+        System.out.println("\nAfter attempting to add duplicate 'Sleeper':");
+        System.out.println(trainFormation);
 
-        passengerBogies.remove("AC Chair");
-        System.out.println("\nAfter removing AC Chair:");
-        System.out.println(passengerBogies);
-
-        System.out.println("\nDoes Sleeper exist? " + passengerBogies.contains("Sleeper"));
-
-        // UC3: Unique Bogie IDs using HashSet
-        System.out.println("\n--- UC3: Unique Bogie ID Tracking ---");
-
-        Set<String> bogieIds = new HashSet<>();
-
-        // Adding bogie IDs (including duplicates)
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
-
-        // Display unique IDs
-        System.out.println("Bogie IDs after insertion (duplicates ignored):");
-        System.out.println(bogieIds);
+        // Step 4: Display final formation
+        System.out.println("\nFinal Train Formation (No duplicates, order preserved):");
+        System.out.println(trainFormation);
     }
 }
