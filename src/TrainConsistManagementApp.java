@@ -1,33 +1,32 @@
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
-        // Step 1: Create LinkedList for train consist
-        LinkedList<String> trainConsist = new LinkedList<>();
+        // Step 1: Create HashMap to store bogie-capacity mapping
+        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // Step 2: Add bogies in order
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        // Step 2: Insert bogie capacities
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 60);
+        bogieCapacityMap.put("First Class", 24);
 
-        System.out.println("Initial Train Consist:");
-        System.out.println(trainConsist);
+        // (Optional) Add goods bogie capacities
+        bogieCapacityMap.put("Cargo Rectangular", 100);
+        bogieCapacityMap.put("Cargo Cylindrical", 120);
 
-        // Step 3: Insert Pantry Car at position 2 (index starts from 0)
-        trainConsist.add(2, "Pantry");
+        // Step 3: Display all bogie-capacity mappings
+        System.out.println("Train Bogie Capacity Details:\n");
 
-        System.out.println("\nAfter adding Pantry Car at position 2:");
-        System.out.println(trainConsist);
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() +
+                    " | Capacity: " + entry.getValue());
+        }
 
-        // Step 4: Remove first and last bogie
-        trainConsist.removeFirst();
-        trainConsist.removeLast();
-
-        // Step 5: Display final train consist
-        System.out.println("\nFinal Train Consist:");
-        System.out.println(trainConsist);
+        // Step 4: Example lookup (important concept)
+        String searchBogie = "Sleeper";
+        System.out.println("\nCapacity of " + searchBogie + ": " +
+                bogieCapacityMap.get(searchBogie));
     }
 }
