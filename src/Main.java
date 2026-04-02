@@ -1,9 +1,9 @@
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.regex.*;
 
 public class Main {
 
-    // Bogie class inside same file
+    // Bogie class (same as before)
     static class Bogie {
         private String type;
         private int capacity;
@@ -13,38 +13,47 @@ public class Main {
             this.capacity = capacity;
         }
 
-        public String getType() {
-            return type;
-        }
-
         public int getCapacity() {
             return capacity;
-        }
-
-        @Override
-        public String toString() {
-            return type + " | Capacity: " + capacity;
         }
     }
 
     public static void main(String[] args) {
 
-        // Reuse list
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("Sleeper", 80));
-        bogies.add(new Bogie("First Class", 45));
-        bogies.add(new Bogie("AC Chair", 65));
+        Scanner sc = new Scanner(System.in);
 
-        // ✅ UC10: Total Seat Calculation
-        int totalSeats = bogies.stream()
-                .map(b -> b.getCapacity())   // extract capacity
-                .reduce(0, Integer::sum);    // sum all
+        // 🔹 User Input
+        System.out.print("Enter Train ID: ");
+        String trainId = sc.nextLine();
 
-        System.out.println("Total Seating Capacity: " + totalSeats);
+        System.out.print("Enter Cargo Code: ");
+        String cargoCode = sc.nextLine();
 
-        // Verify original list unchanged
-        System.out.println("Original List Size: " + bogies.size());
+        // ✅ Regex Patterns
+        String trainRegex = "TRN-\\d{4}";
+        String cargoRegex = "PET-[A-Z]{2}";
+
+        // ✅ Compile Patterns
+        Pattern trainPattern = Pattern.compile(trainRegex);
+        Pattern cargoPattern = Pattern.compile(cargoRegex);
+
+        // ✅ Matchers
+        Matcher trainMatcher = trainPattern.matcher(trainId);
+        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
+
+        // ✅ Validation
+        if (trainMatcher.matches()) {
+            System.out.println("Valid Train ID");
+        } else {
+            System.out.println("Invalid Train ID");
+        }
+
+        if (cargoMatcher.matches()) {
+            System.out.println("Valid Cargo Code");
+        } else {
+            System.out.println("Invalid Cargo Code");
+        }
+
+        sc.close();
     }
-}}
+}
