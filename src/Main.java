@@ -29,7 +29,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Reuse list (UC7/UC8)
+        // Reuse list
         List<Bogie> bogies = new ArrayList<>();
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 60));
@@ -37,23 +37,14 @@ public class Main {
         bogies.add(new Bogie("First Class", 45));
         bogies.add(new Bogie("AC Chair", 65));
 
-        // ✅ UC9: Grouping using Stream API
-        Map<String, List<Bogie>> groupedBogies =
-                bogies.stream()
-                        .collect(Collectors.groupingBy(b -> b.getType()));
+        // ✅ UC10: Total Seat Calculation
+        int totalSeats = bogies.stream()
+                .map(b -> b.getCapacity())   // extract capacity
+                .reduce(0, Integer::sum);    // sum all
 
-        // Display grouped result
-        System.out.println("Grouped Bogies:");
-
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println("\nType: " + entry.getKey());
-
-            for (Bogie b : entry.getValue()) {
-                System.out.println(b);
-            }
-        }
+        System.out.println("Total Seating Capacity: " + totalSeats);
 
         // Verify original list unchanged
-        System.out.println("\nOriginal List Size: " + bogies.size());
+        System.out.println("Original List Size: " + bogies.size());
     }
-}
+}}
